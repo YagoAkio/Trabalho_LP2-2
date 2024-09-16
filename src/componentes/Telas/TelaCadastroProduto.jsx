@@ -6,9 +6,19 @@ import TabelaProdutos from "./Tabelas/TabelaProdutos";
 import { produtos } from "../../dados/mockProdutos";
 
 export default function TelaCadastroProduto(props) {
-    const [exibirTabela, setExibirTabela] = useState(true);
-    const [listaDeProdutos, setListaDeProdutos] = useState(true);
-   
+    const [exibirTabela, setExibirTabela] = useState(false);
+    const [listaDeProdutos, setListaDeProdutos] = useState(produtos);
+    const [produtoParaEdicao, setProdutoParaEdicao] = useState({
+        codigo: 0,
+        descricao: "",
+        precoCusto: 0,
+        precoVenda: 0,
+        qtdEstoque: 0,
+        urlImagem: "",
+        dataValidade: ""
+    });
+    const [modoEdicao, setModoEdicao] = useState(false);
+
     return (
         <div>
             <Pagina>
@@ -19,12 +29,22 @@ export default function TelaCadastroProduto(props) {
                 </Alert>
                 {
                     exibirTabela ?
-                        <TabelaProdutos listaDeProdutos={listaDeProdutos}
-                                        setExibirTabela={setExibirTabela} 
-                                        setlistaDeProdutos={setListaDeProdutos}/> :
-                        <FormCadProdutos    listaDeProdutos={listaDeProdutos} 
-                                            setExibirTabela={setExibirTabela} 
-                                            setlistaDeProdutos={setListaDeProdutos} />
+                        <TabelaProdutos exibirTabela = {setExibirTabela}
+                                        listaDeProdutos={listaDeProdutos}
+                                        setlistaDeProdutos={setListaDeProdutos}
+                                        produtoParaEdicao={produtoParaEdicao}
+                                        setProdutoParaEdicao={setProdutoParaEdicao}
+                                        modoEdicao={modoEdicao}
+                                        setModoEdicao={setModoEdicao} /> :
+                        
+                        <FormCadProdutos    exibirTabela = {setExibirTabela}
+                                            listaDeProdutos={listaDeProdutos} 
+                                            setlistaDeProdutos={setListaDeProdutos}
+                                            produtoParaEdicao={produtoParaEdicao}
+                                            setProdutoParaEdicao={setProdutoParaEdicao}
+                                            modoEdicao={modoEdicao}
+                                            setModoEdicao={setModoEdicao}
+                                            />
                 }
             </Pagina>
         </div>

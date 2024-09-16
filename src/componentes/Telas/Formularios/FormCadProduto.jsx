@@ -7,26 +7,33 @@ import { useState } from 'react';
 
 export default function FormCadProdutos(props) {
     const [produto, setProduto] = useState({
-        codigo:0,
-        descricao:"",
-        precoCusto:0,
-        precoVenda:0,
-        qtdEstoque:0,
-        urlImagem:"",
-        dataValidade:""
+        codigo: 0,
+        descricao: "",
+        precoCusto: 0,
+        precoVenda: 0,
+        qtdEstoque: 0,
+        urlImagem: "",
+        dataValidade: ""
 
     });
     const [formValidado, setFormValidado] = useState(false);
 
-    function manipularSubmissao(evento){
+    function manipularSubmissao(evento) {
         const form = evento.currentTarget;
-        if (form.checkValidity()){
+        if (form.checkValidity()) {
+            if(!props.modoEdicao){
+                props.setProduto([...props.listaDeProdutos,produto]);
+            }else{
+                props.setProduto([...props.listaDeProdutos.filter((itemProduto)=>itemProduto.codigo !== produto.codigo),produto]);
+                props.setModoEdicao(false);
+            }
             //cadastrar o produto
-            props.listaDeProdutos.push(produto);
+            //props.listaDeProdutos.push(produto);
             //exibir tabela com o produto incluído
-            props.setExibirTabela(true);
+            //props.setExibirTabela(true);
+            setFormValidado(false);
         }
-        else{
+        else {
             setFormValidado(true);
         }
         evento.preventDefault();
@@ -34,10 +41,10 @@ export default function FormCadProdutos(props) {
 
     }
 
-    function manipularMudanca(evento){
+    function manipularMudanca(evento) {
         const elemento = evento.target.name;
-        const valor    = evento.target.value; 
-        setProduto({...produto, [elemento]:valor});
+        const valor = evento.target.value;
+        setProduto({ ...produto, [elemento]: valor });
     }
 
     return (
@@ -156,11 +163,11 @@ export default function FormCadProdutos(props) {
             </Row>
             <Row className='mt-2 mb-2'>
                 <Col md={1}>
-                    <Button type="submit">Confirmar</Button>
+                    <Button type="submit"  variant={"primary"}>{props.modoEdicao ? "Alterar":"Cadastrar"}</Button>
                 </Col>
-                <Col md={{offset:1}}>
-                    <Button onClick={()=>{
-                        props.setExibirTabela(true);
+                <Col md={{ offset: 1 }}>
+                    <Button type="button" variant={"secondary"} onClick={() => {
+                        props.exibirTabela(true)
                     }}>Voltar</Button>
                 </Col>
             </Row>
