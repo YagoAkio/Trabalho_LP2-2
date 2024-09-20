@@ -16,7 +16,7 @@ export default function TabelaProdutos(props) {
 
         props.setProdutoParaEdicao(produto);
         props.setModoEdicao(true);
-        props.exibirTabela(true);
+        props.exibirTabela(false);
 
     }
 
@@ -25,7 +25,8 @@ export default function TabelaProdutos(props) {
             <Container>
                 <Button className="mb-3" variant="primary"
                     onClick={() => {
-                        props.setExibirTabela(false);
+                        props.exibirTabela(false);
+                        props.setModoEdicao(false);
                     }}>
                     Adicionar
                 </Button>
