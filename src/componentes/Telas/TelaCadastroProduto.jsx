@@ -7,7 +7,7 @@ import { produtos } from "../../dados/mockProdutos";
 
 export default function TelaCadastroProduto(props) {
     const [exibirTabela, setExibirTabela] = useState(false);
-    const [listaDeProdutos, setListaDeProdutos] = useState(produtos);
+    const [listaDeProdutos, setListaDeProdutos] = useState([]);
     const [produtoParaEdicao, setProdutoParaEdicao] = useState({
         codigo: 0,
         descricao: "",
@@ -22,7 +22,7 @@ export default function TelaCadastroProduto(props) {
     return (
         <div>
             <Pagina>
-                |<Alert className="mt-02 mb-02 success text-center" variant="success">
+                <Alert className="mt-02 mb-02 success text-center" variant="success">
                     <h2>
                         Cadastro de Produto
                     </h2>

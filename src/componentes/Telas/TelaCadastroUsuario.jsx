@@ -1,17 +1,50 @@
 import { Alert } from "react-bootstrap";
 import Pagina from "../layouts/Pagina";
 import FormCadUsuario from "./Formularios/FormCadUsuario";
+import { useState } from "react";
+import TabelaUsuarios from "./Tabelas/TabelaUsuario";
 
 export default function TelaCadastroUsuario(props){
+    const [exibirTabela, setExibirTabela] = useState(false);
+    const [listaDeUsuario, setListaDeUsuario] = useState([]);
+    const [usuarioParaEdicao, setUsuarioParaEdicao] = useState({
+        id: 0,
+        nome: "",
+        email: "",
+        telefone: "",
+        senha: ""
+    })
+    const [modoEdicao, setModoEdicao] = useState(false);
+
     return (
         <div>
             <Pagina>
-                |<Alert className="mt-02 mb-02 success text-center" variant="success">
+                <Alert className="mt-02 mb-02 success text-center" variant="success">
                     <h2>
                         Cadastro de Usuário
                     </h2>
                 </Alert>
-                <FormCadUsuario />
+                {
+                    exibirTabela ?  <TabelaUsuarios
+                                        exibirTabela = {setExibirTabela}
+                                        listaDeUsuario = {listaDeUsuario}
+                                        setListaDeUsuario = {setListaDeUsuario}
+                                        usuarioParaEdicao = {usuarioParaEdicao}
+                                        setUsuarioParaEdicao = {setUsuarioParaEdicao}
+                                        modoEdicao = {modoEdicao}
+                                        setModoEdicao = {setModoEdicao}                                  
+                                    /> 
+                                    : 
+                                    <FormCadUsuario 
+                                        exibirTabela = {setExibirTabela}
+                                        listaDeUsuario = {listaDeUsuario}
+                                        setListaDeUsuario = {setListaDeUsuario}
+                                        usuarioParaEdicao = {usuarioParaEdicao}
+                                        setUsuarioParaEdicao = {setUsuarioParaEdicao}
+                                        modoEdicao = {modoEdicao}
+                                        setModoEdicao = {setModoEdicao}    
+                                    />
+                }
             </Pagina>
 
         </div>

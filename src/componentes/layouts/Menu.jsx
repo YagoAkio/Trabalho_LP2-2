@@ -14,10 +14,11 @@ export default function Menu(props) {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavDropdown title="Cadastros" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#" as={Link} to="/categoria">Categorias</NavDropdown.Item>
                             <NavDropdown.Item href="#" as={Link} to="/cliente">Clientes</NavDropdown.Item>
                             <NavDropdown.Item href="#" as={Link} to="/fornecedor">Fornecedores</NavDropdown.Item>
                             <NavDropdown.Item href="#" as={Link} to="/produto">Produtos</NavDropdown.Item>
-                            <NavDropdown.Item href="#" as={Link} to="/categoria">Categorias</NavDropdown.Item>
+                            <NavDropdown.Item href="#" as={Link} to="/usuario">Usuário</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Operações" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Compra</NavDropdown.Item>
