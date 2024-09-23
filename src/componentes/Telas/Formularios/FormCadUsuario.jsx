@@ -17,17 +17,22 @@ export default function FormCadUsuario(props) {
         const form = evento.currentTarget;
         if(form.checkValidity()){
             if(!props.modoEdicao){
-                props.setListaDeUsuaios([...props.listaDeUsuarios,usuario])
+                usuario.id = props.idUsuario + 1;
+                props.setListaDeUsuarios([...props.listaDeUsuarios,usuario])
+                
             }else{
-                props.setListaDeUsuaios([...props.listaDeUsuaios.filter((itemUsuaio)=>itemUsuaio.id !== usuario.id),usuario]);
-                // props.setModoEdicao(false);
-                // props.setProdutoParaEdicao(usuarioVazio); 
+                props.setListaDeUsuarios([...props.listaDeUsuarios.filter((itemUsuario)=>itemUsuario.id !== usuario.id),usuario]);
+                props.setModoEdicao(false);
+                props.setUsuarioParaEdicao(usuarioVazio); 
             }
+            props.exibirTabela(true);
             setUsuario(usuarioVazio);
             setFormValidado(false);
         }else{
             setFormValidado(true);
         }
+        evento.preventDefault();
+        evento.stopPropagation();
     }
 
     function manipularMudanca(evento){

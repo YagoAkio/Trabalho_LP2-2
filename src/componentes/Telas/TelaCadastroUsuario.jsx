@@ -6,7 +6,10 @@ import TabelaUsuarios from "./Tabelas/TabelaUsuario";
 
 export default function TelaCadastroUsuario(props){
     const [exibirTabela, setExibirTabela] = useState(false);
-    const [listaDeUsuarios, setListaDeUsuarios] = useState([]);
+    let [listaDeUsuarios, setListaDeUsuarios] = useState([]);
+    listaDeUsuarios = [...listaDeUsuarios].sort((a, b) => {
+        return a.id - b.id; // Comparação numérica
+    });
     const [usuarioParaEdicao, setUsuarioParaEdicao] = useState({
         id: 0,
         nome: "",
@@ -15,6 +18,10 @@ export default function TelaCadastroUsuario(props){
         senha: ""
     })
     const [modoEdicao, setModoEdicao] = useState(false);
+    let idUsuario = 0
+    if(listaDeUsuarios.length > 0 ){
+        idUsuario = listaDeUsuarios[listaDeUsuarios.length-1].id;
+    }
 
     return (
         <div>
@@ -42,7 +49,8 @@ export default function TelaCadastroUsuario(props){
                                         usuarioParaEdicao = {usuarioParaEdicao}
                                         setUsuarioParaEdicao = {setUsuarioParaEdicao}
                                         modoEdicao = {modoEdicao}
-                                        setModoEdicao = {setModoEdicao}    
+                                        setModoEdicao = {setModoEdicao}
+                                        idUsuario = {idUsuario}    
                                     />
                 }
             </Pagina>
