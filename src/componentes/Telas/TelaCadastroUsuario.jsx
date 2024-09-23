@@ -6,7 +6,7 @@ import TabelaUsuarios from "./Tabelas/TabelaUsuario";
 
 export default function TelaCadastroUsuario(props){
     const [exibirTabela, setExibirTabela] = useState(false);
-    const [listaDeUsuario, setListaDeUsuario] = useState([]);
+    const [listaDeUsuarios, setListaDeUsuarios] = useState([]);
     const [usuarioParaEdicao, setUsuarioParaEdicao] = useState({
         id: 0,
         nome: "",
@@ -27,8 +27,8 @@ export default function TelaCadastroUsuario(props){
                 {
                     exibirTabela ?  <TabelaUsuarios
                                         exibirTabela = {setExibirTabela}
-                                        listaDeUsuario = {listaDeUsuario}
-                                        setListaDeUsuario = {setListaDeUsuario}
+                                        listaDeUsuarios = {listaDeUsuarios}
+                                        setListaDeUsuarios = {setListaDeUsuarios}
                                         usuarioParaEdicao = {usuarioParaEdicao}
                                         setUsuarioParaEdicao = {setUsuarioParaEdicao}
                                         modoEdicao = {modoEdicao}
@@ -37,8 +37,8 @@ export default function TelaCadastroUsuario(props){
                                     : 
                                     <FormCadUsuario 
                                         exibirTabela = {setExibirTabela}
-                                        listaDeUsuario = {listaDeUsuario}
-                                        setListaDeUsuario = {setListaDeUsuario}
+                                        listaDeUsuarios = {listaDeUsuarios}
+                                        setListaDeUsuarios = {setListaDeUsuarios}
                                         usuarioParaEdicao = {usuarioParaEdicao}
                                         setUsuarioParaEdicao = {setUsuarioParaEdicao}
                                         modoEdicao = {modoEdicao}

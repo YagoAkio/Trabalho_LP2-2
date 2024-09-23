@@ -1,11 +1,11 @@
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 
 
 export default function TabelaUsuarios(props) {
     
     function excluirUsuario(usuario) {
         if (window.confirm("Deseja realmente excluir o usuario " + usuario.nome)) {
-            props.setlistaDeProdutos(
+            props.setListaDeUsuario(
                 props.listaDeUsuario.filter((item) => {
                     return item.id != usuario.id
                 })
@@ -16,7 +16,7 @@ export default function TabelaUsuarios(props) {
     function editarUsuario(usuario) {
         props.setUsuarioParaEdicao(usuario);
         props.setModoEdicao(true);
-        props.exibirTabela(true);
+        props.exibirTabela(false);
 
     }
 
@@ -25,7 +25,8 @@ export default function TabelaUsuarios(props) {
             <Container>
                 <Button className="mb-3" variant="primary"
                     onClick={() => {
-                        props.setExibirTabela(false);
+                        props.exibirTabela(false);
+                        props.setModoEdicao(false);
                     }}>
                     Adicionar
                 </Button>
@@ -40,7 +41,7 @@ export default function TabelaUsuarios(props) {
                     </thead>
                     <tbody>
                         {
-                            props.listaDeUsuario?.map((usuario) => {
+                            props.listaDeUsuarios?.map((usuario) => {
                                 return (
                                     <tr>
                                         <td>{usuario.id}</td>
