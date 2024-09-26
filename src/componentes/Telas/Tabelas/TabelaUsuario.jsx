@@ -14,9 +14,9 @@ export default function TabelaUsuarios(props) {
     }
 
     function editarUsuario(usuario) {
-        props.setUsuarioParaEdicao(usuario);
+        props.setUsuarioSelecionado(usuario);
         props.setModoEdicao(true);
-        props.exibirTabela(false);
+        props.setExibirTabela(false);
 
     }
 
@@ -25,7 +25,7 @@ export default function TabelaUsuarios(props) {
             <Container>
                 <Button className="mb-3" variant="primary"
                     onClick={() => {
-                        props.exibirTabela(false);
+                        props.setExibirTabela(false);
                         props.setModoEdicao(false);
                     }}>
                     Adicionar

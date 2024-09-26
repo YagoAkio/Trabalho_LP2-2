@@ -6,37 +6,39 @@ import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 
 export default function FormCadProdutos(props) {
-    const produtoVazio = {
-        codigo: 0,
-        descricao: "",
-        precoCusto: 0,
-        precoVenda: 0,
-        qtdEstoque: 0,
-        urlImagem: "",
-        dataValidade: ""
-    }
-    const estadoInicialProduto = props.produtoParaEdicao
-    const [produto, setProduto] = useState(estadoInicialProduto);
+    const [produto, setProduto] = useState(props.produtoSelecionado);
     const [formValidado, setFormValidado] = useState(false);
 
-    function manipularSubmissao(evento) {
+    function manipularSubmissao(evento){
         const form = evento.currentTarget;
-        if (form.checkValidity()) {
-            if(!props.modoEdicao){
-                props.setlistaDeProdutos([...props.listaDeProdutos,produto]);
-            }else{
-                props.setlistaDeProdutos([...props.listaDeProdutos.filter((itemProduto)=>itemProduto.codigo !== produto.codigo),produto]);
-                props.setModoEdicao(false);
-                props.setProdutoParaEdicao(produtoVazio); 
+        if (form.checkValidity()){
+            
+            if (!props.modoEdicao){
+                props.setListaDeProdutos([...props.listaDeProdutos, produto]);
+                props.setExibirTabela(true);
             }
-            //cadastrar o produto
-            //props.listaDeProdutos.push(produto);
-            //exibir tabela com o produto incluído
-            //props.setExibirTabela(true);
-            setProduto(produtoVazio); 
-            setFormValidado(false);
+            else{
+                props.setListaDeProdutos(props.listaDeProdutos.map((item) => {
+                    if (item.codigo !== produto.codigo)
+                        return item
+                    else
+                        return produto
+                }));
+                props.setModoEdicao(false);
+                props.setProdutoSelecionado({
+                    codigo:0,
+                    descricao:"",
+                    precoCusto:0,
+                    precoVenda:0,
+                    qtdEstoque:0,
+                    urlImagem:"",
+                    dataValidade:""
+                });
+                props.setExibirTabela(true);
+            }
+
         }
-        else {
+        else{
             setFormValidado(true);
         }
         evento.preventDefault();
@@ -44,11 +46,12 @@ export default function FormCadProdutos(props) {
 
     }
 
-    function manipularMudanca(evento) {
-        const componente = evento.currentTarget;
-        console.log(componente.value)
-        setProduto({ ...produto, [componente.name]: componente.value });
+    function manipularMudanca(evento){
+        const elemento = evento.target.name;
+        const valor    = evento.target.value; 
+        setProduto({...produto, [elemento]:valor});
     }
+
 
     return (
         <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
@@ -170,10 +173,17 @@ export default function FormCadProdutos(props) {
                 </Col>
                 <Col md={{ offset: 1 }}>
                     <Button type="button" variant={"secondary"} onClick={() => {
-                        setProduto(produtoVazio);
-                        props.exibirTabela(true);
                         props.setModoEdicao(false);
-                        props.setProdutoParaEdicao(produtoVazio);
+                        props.setProdutoSelecionado({
+                            codigo:0,
+                            descricao:"",
+                            precoCusto:0,
+                            precoVenda:0,
+                            qtdEstoque:0,
+                            urlImagem:"",
+                            dataValidade:""
+                        });
+                        props.setExibirTabela(true);
                     }}>Voltar</Button>
                 </Col>
             </Row>

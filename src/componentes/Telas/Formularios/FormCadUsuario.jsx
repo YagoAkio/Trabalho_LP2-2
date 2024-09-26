@@ -2,15 +2,7 @@ import { useState } from 'react';
 import { Container, Form, Row, Col, Button, FloatingLabel, Spinner } from 'react-bootstrap';
 
 export default function FormCadUsuario(props) {
-    const usuarioVazio = {
-        id: 0,
-        nome: "",
-        email: "",
-        telefone: "",
-        senha: ""
-    }
-    const estadoInicialUsuario = props.usuarioParaEdicao;
-    const [usuario, setUsuario] = useState(estadoInicialUsuario);
+    const [usuario, setUsuario] = useState(props.usuarioSelecionado);
     const [formValidado, setFormValidado] = useState(false);
     
     function manipularSubmissao(evento){
@@ -19,14 +11,24 @@ export default function FormCadUsuario(props) {
             if(!props.modoEdicao){
                 usuario.id = props.idUsuario + 1;
                 props.setListaDeUsuarios([...props.listaDeUsuarios,usuario])
-                
+
             }else{
-                props.setListaDeUsuarios([...props.listaDeUsuarios.filter((itemUsuario)=>itemUsuario.id !== usuario.id),usuario]);
+                props.setListaDeUsuarios(props.listaDeUsuarios.map((item)=>{
+                    if(item.id === usuario.id)
+                        return item;
+                    else
+                        return usuario;
+                }));
                 props.setModoEdicao(false);
-                props.setUsuarioParaEdicao(usuarioVazio); 
+                props.setUsuarioSelecionado({
+                    id: 0,
+                    nome: "",
+                    email: "",
+                    telefone: "",
+                    senha: ""
+                }); 
             }
-            props.exibirTabela(true);
-            setUsuario(usuarioVazio);
+            props.setExibirTabela(true);
             setFormValidado(false);
         }else{
             setFormValidado(true);
@@ -36,9 +38,9 @@ export default function FormCadUsuario(props) {
     }
 
     function manipularMudanca(evento){
-        const componente = evento.currentTarget;
-        console.log(componente.value);
-        setUsuario({...usuario, [componente.name]: componente.value})
+        const elemento = evento.target.name;
+        const valor = evento.target.value;
+        setUsuario({...usuario,[elemento]:valor});
     }
 
     return (
@@ -120,10 +122,15 @@ export default function FormCadUsuario(props) {
                 </Col>
                 <Col md={{ offset: 1 }}>
                     <Button type="button" variant={"secondary"} onClick={() => {
-                        setUsuario(usuarioVazio);
-                        props.exibirTabela(true);
+                        props.setExibirTabela(true);
                         props.setModoEdicao(false);
-                        props.setUsuarioParaEdicao(usuarioVazio);
+                        props.setUsuarioSelecionado({
+                            id: 0,
+                            nome: "",
+                            email: "",
+                            telefone: "",
+                            senha: ""
+                        }); 
                     }}>Voltar</Button>
                 </Col>
             </Row>

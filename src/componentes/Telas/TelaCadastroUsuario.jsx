@@ -6,11 +6,8 @@ import TabelaUsuarios from "./Tabelas/TabelaUsuario";
 
 export default function TelaCadastroUsuario(props){
     const [exibirTabela, setExibirTabela] = useState(false);
-    let [listaDeUsuarios, setListaDeUsuarios] = useState([]);
-    listaDeUsuarios = [...listaDeUsuarios].sort((a, b) => {
-        return a.id - b.id; // Comparação numérica
-    });
-    const [usuarioParaEdicao, setUsuarioParaEdicao] = useState({
+    const [listaDeUsuarios, setListaDeUsuarios] = useState([]);
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState({
         id: 0,
         nome: "",
         email: "",
@@ -33,21 +30,19 @@ export default function TelaCadastroUsuario(props){
                 </Alert>
                 {
                     exibirTabela ?  <TabelaUsuarios
-                                        exibirTabela = {setExibirTabela}
+                                        setExibirTabela={setExibirTabela}
                                         listaDeUsuarios = {listaDeUsuarios}
                                         setListaDeUsuarios = {setListaDeUsuarios}
-                                        usuarioParaEdicao = {usuarioParaEdicao}
-                                        setUsuarioParaEdicao = {setUsuarioParaEdicao}
-                                        modoEdicao = {modoEdicao}
+                                        setUsuarioSelecionado = {setUsuarioSelecionado}
                                         setModoEdicao = {setModoEdicao}                                  
                                     /> 
                                     : 
                                     <FormCadUsuario 
-                                        exibirTabela = {setExibirTabela}
+                                        setExibirTabela = {setExibirTabela}
                                         listaDeUsuarios = {listaDeUsuarios}
                                         setListaDeUsuarios = {setListaDeUsuarios}
-                                        usuarioParaEdicao = {usuarioParaEdicao}
-                                        setUsuarioParaEdicao = {setUsuarioParaEdicao}
+                                        usuarioSelecionado = {usuarioSelecionado}
+                                        setUsuarioSelecionado = {setUsuarioSelecionado}
                                         modoEdicao = {modoEdicao}
                                         setModoEdicao = {setModoEdicao}
                                         idUsuario = {idUsuario}    
