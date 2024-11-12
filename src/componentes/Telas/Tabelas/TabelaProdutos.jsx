@@ -3,6 +3,24 @@ import { excluirProduto } from "../../../services/servicoProduto";
 
 import toast, {Toaster} from 'react-hot-toast';
 
+function consertarData(dataStr) {
+    // Cria um objeto Date a partir da string
+    const data = new Date(dataStr);
+    
+    // Verifica se a data é válida
+    if (isNaN(data.getTime())) {
+        return "Data inválida";
+    }
+
+    // Extrai o dia, mês e ano
+    const dia = String(data.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const ano = data.getFullYear();
+
+    // Retorna a data formatada
+    return `${dia}/${mes}/${ano}`;
+}
+
 export default function TabelaProdutos(props) {
 
     function editarProduto(produto){
@@ -63,7 +81,7 @@ export default function TabelaProdutos(props) {
                                                           "width":"40px",
                                                           "height":"40px"
                                                         }} src={produto.urlImagem} alt="foto do produto" /></td>
-                                        <td>{produto.dataValidade}</td>
+                                        <td>{consertarData(produto.dataValidade) }</td>
                                         <td>
                                             <Button onClick={()=>{
                                                 editarProduto(produto);

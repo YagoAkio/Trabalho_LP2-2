@@ -5,6 +5,24 @@ import { gravarProduto,alterarProduto,excluirProduto } from "../../../services/s
 
 import toast, {Toaster} from 'react-hot-toast';
 
+function consertarData(dataStr) {
+    // Cria um objeto Date a partir da string
+    const data = new Date(dataStr);
+    
+    // Verifica se a data é válida
+    if (isNaN(data.getTime())) {
+        return "Data inválida";
+    }
+
+    // Extrai o dia, mês e ano
+    const dia = String(data.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const ano = data.getFullYear();
+
+    // Retorna a data formatada
+    return `${dia}/${mes}/${ano}`;
+}
+
 export default function FormCadProdutos(props) {
 const [produto, setProduto] = useState(props.produtoSelecionado);
 const [formValidado, setFormValidado] = useState(false);
@@ -216,7 +234,7 @@ return (
                    type="text"
                    id="dataValidade"
                    name="dataValidade"
-                   value={produto.dataValidade}
+                   value={consertarData(produto.dataValidade) }
                    onChange={manipularMudanca}
                />
                <Form.Control.Feedback type="invalid">Por favor, informe a data de validade do produto!</Form.Control.Feedback>

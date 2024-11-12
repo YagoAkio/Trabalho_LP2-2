@@ -20,11 +20,11 @@ export default function TelaCadastroProduto(props) {
         categoria: {}
 
     });
-    useEffect(()=>{
-        consultarProduto().then((lista)=>{
-            setListaDeProdutos(lista);
+    useEffect(() => {
+        consultarProduto().then((lista) => {
+            setListaDeProdutos(lista || []); // Garante que seja um array
         });
-    },[]);
+    }, []);
    
     return (
         <div>

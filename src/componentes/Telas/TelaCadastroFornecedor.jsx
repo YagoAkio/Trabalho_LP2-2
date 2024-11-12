@@ -1,8 +1,9 @@
 import { Alert } from "react-bootstrap";
 import FormCadFornecedor from "./Formularios/FormCadFornecedor";
 import Pagina from "../layouts/Pagina";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabelaFornecedores from "./Tabelas/TabelaFornecedor";
+import { consultarFornecedor } from "../../services/servicoFornecedor";
 
 export default function TelaCadastroFornecedor(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
@@ -15,6 +16,12 @@ export default function TelaCadastroFornecedor(props) {
         telefone: "",
         email: "",
         endereco: ""
+    });
+
+    useEffect(()=>{
+        consultarFornecedor().then((lista)=>{
+            setListaDeFornecedores(lista||[]);
+        })
     });
 
     return (

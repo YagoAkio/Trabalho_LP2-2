@@ -1,8 +1,9 @@
 import { Alert } from "react-bootstrap";
 import FormCadCategoria from "./Formularios/FormCadCategoria";
 import Pagina from "../layouts/Pagina";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabelaCategorias from "./Tabelas/TabelaCategorias";
+import { consultarCategoria } from "../../services/servicoCategoria";
 
 export default function TelaCadastroCategoria(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
@@ -13,6 +14,12 @@ export default function TelaCadastroCategoria(props) {
         nome: "",
         descricao: ""
     });
+
+    useEffect(()=>{
+        consultarCategoria().then((lista)=>{
+            setListaDeCategorias(lista||[]);
+        })
+    })
 
     return (
         <div>

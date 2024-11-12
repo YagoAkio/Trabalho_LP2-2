@@ -1,8 +1,9 @@
 import { Alert } from "react-bootstrap";
 import FormCadCliente from "./Formularios/FormCadCliente";
 import Pagina from "../layouts/Pagina";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabelaClientes from "./Tabelas/TabelaCliente";
+import { consultarCliente } from "../../services/servicoCliente"
 
 export default function TelaCadastroCliente(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
@@ -16,6 +17,12 @@ export default function TelaCadastroCliente(props) {
         email: "",
         endereco: ""
     });
+
+    useEffect(()=>{
+        consultarCliente().then((lista)=>{
+            setListaDeClientes(lista||[]);
+        })
+    })
 
     return (
         <div>
